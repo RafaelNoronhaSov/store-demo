@@ -1,0 +1,32 @@
+services:
+  orchestrator:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        APP: orchestrator
+    container_name: orchestrator
+    environment:
+      - PACKING_HOST=packing
+      - PACKING_PORT=50051
+      - PACKING_PROTO_PATH=/usr/src/app/dist/libs/common/src/proto/packing.proto
+    ports:
+      - "3000:3000"
+    command: node dist/apps/orchestrator/main.js
+
+  packing:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        APP: packing
+    container_name: packing
+    environment:
+      - PACKING_HOST=0.0.0.0
+      - PACKING_PORT=50051
+      - PACKING_PROTO_PATH=/usr/src/app/dist/libs/common/src/proto/packing.proto
+    ports:
+      - "50051:50051"
+    command: node dist/apps/packing/main.js
+    depends_on:
+      - orchestrator

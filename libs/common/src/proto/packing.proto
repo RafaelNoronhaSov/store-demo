@@ -1,0 +1,43 @@
+syntax = "proto3";
+
+package packing;
+
+message PackingDimensions {
+  int32 altura = 1;
+  int32 largura = 2;
+  int32 comprimento = 3;
+}
+
+message PackingProduct {
+  string produtoId = 1;
+  PackingDimensions dimensoes = 2;
+}
+
+message PackingItem {
+  int32 pedidoId = 1;
+  repeated PackingProduct produtos = 2;
+}
+
+message PackingRequest {
+  repeated PackingItem pedidos = 1;
+}
+
+
+message PackingOutputItemCaixa {
+  optional string caixaId = 1;
+  repeated string produtos = 2;
+  optional string observacao = 3;
+}
+
+message PackingOutputItem {
+  int32 pedidoId = 1;
+  repeated PackingOutputItemCaixa caixas = 2;
+}
+
+message PackingResponse {
+  repeated PackingOutputItem pedidos = 1;
+}
+
+service PackingService {
+  rpc IssuePacking(PackingRequest) returns (PackingResponse);
+}
