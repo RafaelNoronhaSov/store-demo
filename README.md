@@ -10,3 +10,5 @@ Ele consiste em dois serviços separados:
 O serviço de empacotamento é um serviço CPU-Bound que processa as requisições e retorna as caixas necessárias para embalar os produtos. Ele é implementado utilizando o padrão de comunicação gRPC.
 
 Para executar o projeto, basta executar o comando `docker-compose up` na pasta raiz do projeto. Isso irá criar os containers necessários para executar o serviço de empacotamento e o monorepo.
+
+A documentação swagger do projeto está disponível na rota default `/api`
